@@ -17,14 +17,14 @@ public class Post {
     private String content;
     private LocalDateTime publishedOn;
     private LocalDateTime updatedOn;
-    private AggregateReference<Author, Integer> authorId;
+    private AggregateReference<Author, Integer> author;
     private Set<Comment> comments = new HashSet<>();
 
-    public Post(String title, String content, AggregateReference<Author, Integer> authorId) {
+    public Post(String title, String content, AggregateReference<Author, Integer> author) {
         this.title = title;
         this.content = content;
         this.publishedOn = LocalDateTime.now();
-        this.authorId = authorId;
+        this.author = author;
     }
 
     public Integer getId() {
@@ -67,12 +67,12 @@ public class Post {
         this.updatedOn = updatedOn;
     }
 
-    public AggregateReference<Author, Integer> getAuthorId() {
-        return authorId;
+    public AggregateReference<Author, Integer> getAuthor() {
+        return author;
     }
 
-    public void setAuthorId(AggregateReference<Author, Integer> authorId) {
-        this.authorId = authorId;
+    public void setAuthor(AggregateReference<Author, Integer> author) {
+        this.author = author;
     }
 
     public Set<Comment> getComments() {

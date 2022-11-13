@@ -15,8 +15,8 @@ CREATE TABLE post(
     content TEXT NOT NULL,
     published_on TIMESTAMP NOT NULL,
     updated_on TIMESTAMP,
-    author_id INT NOT NULL,
-    CONSTRAINT fk_author_post FOREIGN KEY(author_id) REFERENCES author(id)
+    author INT NOT NULL,
+    CONSTRAINT fk_author_post FOREIGN KEY(author) REFERENCES author(id)
 );
 
 -- comment
