@@ -1,6 +1,8 @@
 package com.magadiflo.jdbc.app.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.jdbc.core.mapping.AggregateReference;
+import org.springframework.data.relational.core.sql.In;
 
 import java.time.LocalDateTime;
 
@@ -12,13 +14,14 @@ public class Post {
     private String content;
     private LocalDateTime publishedOn;
     private LocalDateTime updatedOn;
-    //Author
+    private AggregateReference<Author, Integer> authorId;
     // Comments
 
-    public Post(String title, String content) {
+    public Post(String title, String content, AggregateReference<Author, Integer> authorId) {
         this.title = title;
         this.content = content;
         this.publishedOn = LocalDateTime.now();
+        this.authorId = authorId;
     }
 
     public Integer getId() {
