@@ -1,3 +1,12 @@
+-- author
+CREATE TABLE author(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    username VARCHAR(100) NOT NULL
+);
+
 -- post
 CREATE TABLE post(
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -5,5 +14,7 @@ CREATE TABLE post(
     title VARCHAR(255) NOT NULL,
     content TEXT NOT NULL,
     published_on TIMESTAMP NOT NULL,
-    updated_on TIMESTAMP
+    updated_on TIMESTAMP,
+    author_id INT NOT NULL,
+    CONSTRAINT fk_author_post FOREIGN KEY(author_id) REFERENCES author(id)
 );
