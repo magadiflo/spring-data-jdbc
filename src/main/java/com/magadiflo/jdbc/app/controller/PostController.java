@@ -1,6 +1,8 @@
 package com.magadiflo.jdbc.app.controller;
 
+import com.magadiflo.jdbc.app.model.Author;
 import com.magadiflo.jdbc.app.model.Post;
+import com.magadiflo.jdbc.app.model.dto.PostDetails;
 import com.magadiflo.jdbc.app.repository.AuthorRepository;
 import com.magadiflo.jdbc.app.repository.PostRepository;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,5 +30,12 @@ public class PostController {
     @GetMapping(path = "/{id}")
     public Post findById(@PathVariable Integer id) {
         return this.postRepository.findById(id).orElseThrow();
+    }
+
+    @GetMapping(path = "/{id}/details")
+    public PostDetails getPostDetails(@PathVariable Integer id) {
+        Post post = this.postRepository.findById(id).orElseThrow();
+        Author author = this.authorRepository.findById(post.getAuthor().getId()).orElseThrow();
+        return new PostDetails(post, author);
     }
 }
