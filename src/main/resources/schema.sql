@@ -18,3 +18,13 @@ CREATE TABLE post(
     author_id INT NOT NULL,
     CONSTRAINT fk_author_post FOREIGN KEY(author_id) REFERENCES author(id)
 );
+
+-- comment
+CREATE TABLE comment(
+    post INT NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    content TEXT NOT NULL,
+    published_on TIMESTAMP NOT NULL,
+    updated_on TIMESTAMP,
+    CONSTRAINT fk_post_comment FOREIGN KEY(post) REFERENCES post(id)
+);

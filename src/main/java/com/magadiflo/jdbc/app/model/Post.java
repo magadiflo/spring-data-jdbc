@@ -5,17 +5,20 @@ import org.springframework.data.jdbc.core.mapping.AggregateReference;
 import org.springframework.data.relational.core.sql.In;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Post {
 
-    @Id //Como usamos JDBC, esta anotación es del paquete de springframework y no de javax.persistence como cuando usábamos JPA
+    @Id
+    //Como usamos JDBC, esta anotación es del paquete de springframework y no de javax.persistence como cuando usábamos JPA
     private Integer id;
     private String title;
     private String content;
     private LocalDateTime publishedOn;
     private LocalDateTime updatedOn;
     private AggregateReference<Author, Integer> authorId;
-    // Comments
+    private Set<Comment> comments = new HashSet<>();
 
     public Post(String title, String content, AggregateReference<Author, Integer> authorId) {
         this.title = title;
@@ -62,6 +65,27 @@ public class Post {
 
     public void setUpdatedOn(LocalDateTime updatedOn) {
         this.updatedOn = updatedOn;
+    }
+
+    public AggregateReference<Author, Integer> getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(AggregateReference<Author, Integer> authorId) {
+        this.authorId = authorId;
+    }
+
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public void addComment(Comment comment) {
+        this.comments.add(comment);
+        comment.setPost(this);
     }
 
     @Override

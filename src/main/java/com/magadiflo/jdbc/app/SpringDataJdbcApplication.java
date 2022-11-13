@@ -1,6 +1,7 @@
 package com.magadiflo.jdbc.app;
 
 import com.magadiflo.jdbc.app.model.Author;
+import com.magadiflo.jdbc.app.model.Comment;
 import com.magadiflo.jdbc.app.model.Post;
 import com.magadiflo.jdbc.app.repository.AuthorRepository;
 import com.magadiflo.jdbc.app.repository.PostRepository;
@@ -22,7 +23,11 @@ public class SpringDataJdbcApplication {
         return args -> {
             Integer id = authorRepository.save(new Author(null, "Martín", "Díaz", "martin@gmail.com", "magadiflo")).id();
             AggregateReference<Author, Integer> author = AggregateReference.to(id);
-            postRepository.save(new Post("Hello, world!", "Welcome to my blog!", author));
+
+            Post post = new Post("Hello, world!", "Welcome to my blog!", author);
+            post.addComment(new Comment("Tinkler", "This is my first comment"));
+
+            postRepository.save(post);
         };
     }
 
